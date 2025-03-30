@@ -10,23 +10,42 @@ h1 {
 }
 
 .soundboard {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 40px auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 20px auto;
   max-width: 800px;
+  padding: 0 15px;
 }
 
 .animal {
-  margin: 15px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .animal img {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 15px;
   transition: transform 0.2s;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5em;
+    margin: 15px 0;
+  }
+  
+  .soundboard {
+    gap: 10px;
+  }
+  
+  .animal p {
+    font-size: 1em;
+    margin-top: 5px;
+  }
 }
 
 .animal img:active {
