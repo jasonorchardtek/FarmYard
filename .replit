@@ -18,7 +18,7 @@ mode = "parallel"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python -m http.server 80"
+args = "node -e \"require('http').createServer((req, res) => { const fs = require('fs'); const path = require('path'); let filePath = '.' + req.url; if (filePath === './') filePath = './index.html'; const extname = path.extname(filePath).toLowerCase(); const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpg', '.gif': 'image/gif', '.wav': 'audio/wav', '.mp4': 'video/mp4', '.mp3': 'audio/mpeg' }; const contentType = mimeTypes[extname] || 'application/octet-stream'; fs.readFile(filePath, (error, content) => { if (error) { if (error.code === 'ENOENT') { res.writeHead(404); res.end('File not found'); } else { res.writeHead(500); res.end('Server error: ' + error.code); } } else { res.writeHead(200, { 'Content-Type': contentType }); res.end(content, 'utf-8'); } }); }).listen(80, '0.0.0.0', () => console.log('Server running on port 80'));\""
 waitForPort = 80
 
 [[ports]]
